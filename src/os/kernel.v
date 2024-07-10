@@ -1,27 +1,53 @@
 module main
 
 import vm
+import readline
 
+mut kernel := none
 
-mut stdin  := [1024]u8;
-mut stdout := [1024]u8;
-
-
-fn read(input [u8])
-{
-
+fn start_kernel(){
+	kernel = Kernel{}
 }
 
-fn exit() {
-	exit(0)
+fn kill(){
+	kernel = none
 }
 
-fn write(input [u8])
-{
+struct Kernel{
 
+	pub mut:
+		stdin  := []u8{};
+		stdout := []u8{};
+
+		input_device  := 'keyboard'
+		output_device := 'screen'
 }
 
-fn request_control()
+
+fn (mut kernel Kernel) read()
 {
 
+	mut input := none
+
+	match kernel.input_device {
+		'keyboard' {
+			
+			mut r := readline.Readline{}
+			input = r.read_line('')!
+		}
+	}
+
+	kernel.stdin = input.bytes()
+}
+
+fn (mut kernel Kernel) exit() { exit(0) }
+
+fn (mut kernel Kernel) write()
+{
+	kernel.stdout = output
+
+	match kernel.output_device {
+
+		'screen' { print(stdout.bytestr()) }
+	}
 }

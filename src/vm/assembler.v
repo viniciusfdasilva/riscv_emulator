@@ -1,8 +1,3 @@
-
-
-
-
-
 fn start_assembler()
 {
 	

@@ -1,38 +1,59 @@
 module main
 
 import vm.hardware as vm
+import os
 
 struct J{
 	pub mut:
-		rd i8
-		imm u32
+		opcode u8;
+		rd     u8;
+		imm    u32;
 }
 
 struct R{
 	pub mut:
-		rd  u8;
-		rs1 u8;
-		rs2 u8;
+		opcode u8;
+		funct7 u8;
+		funct3 u8;
+		rd     u8;
+		rs1    u8;
+		rs2    u8;
 }
 
 struct I{
 	pub mut:
-		rd  u8;
-		rs1 u8;
-		imm u16;
+		opcode u8;
+		funct3 u8;
+		rd     u8;
+		rs1    u8;
+		imm    u16;
 }
 
 struct U{
 	pub mut:
-		rd  u8;
-		imm u32;
+		opcode u8;
+		rd     u8;
+		imm    u32;
+}
+
+struct S{
+	pub mut:
+		opcode u8;
+		funct3 u8;
+		rs1    u8;
+		rs2    u8;
+		imm2   u8;
+		imm1   u8;
 }
 
 struct B{
 	pub mut:
-		rs1 u8;
-		rs2 u8;
-		imm u16;
+		opcode u8;
+		funct3 u8;
+		rs1    u8;
+		rs2    u8;
+		imm1   u8;
+		imm2   u8;
 }
 
 struct Instruction{
@@ -208,7 +229,7 @@ fn (inst Instruction) auipc() {
 }
 
 fn (inst Instruction) ecall() {
-	vm.cpu.cpu_control = 'kernel'
+	vm.cpu.cpu_control = '__kernel__'
 }
 
 fn (inst Instruction) addi() {

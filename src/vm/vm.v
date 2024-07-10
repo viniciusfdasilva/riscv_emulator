@@ -39,8 +39,14 @@ fn start_assembler()
 
 fn start_vm()
 {
+
+
 	// Load asm instructions, converts to machine instructions and save in memory
 	start_assembler() 
 	// Get in memory, decode and run instructions
-	cpu.start_cpu() 
+
+	mut threads := []thread{}
+	
+	threads  << spawn cpu.start_cpu()
+	threads  << spawn os.boot()
 }
