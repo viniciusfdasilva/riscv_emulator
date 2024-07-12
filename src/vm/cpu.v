@@ -72,10 +72,10 @@ fn (cpu CPU) decode(u32 instruction)
 		
 		0x33 {
 
-			mut funct3 := (instruction & 0x7000) >> 12
-			mut rd     := (instruction & 0x7000) >> 12
-			mut rs1    :=
-			mut rs2    :=
+			mut funct3 := (instruction & 0xA80)	 >> 7
+			mut rd     := 
+			mut rs1    := 
+			mut rs2    := 
 			mut funct7 := 
 
 			cpu.current_instruction.fmt_r.opcode := opcode 

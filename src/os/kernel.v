@@ -3,7 +3,7 @@ module main
 import vm
 import readline
 
-mut kernel := none
+__global kernel = none
 
 fn start_kernel(){
 	kernel = Kernel{}

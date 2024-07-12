@@ -2,8 +2,7 @@ module main
 
 import cpu
 
-
-mut hardware := Hardware{ram: RAM{}, cpu: Cpu{}}
+mut vm_hardwares := Hardware{ram: RAM{}, cpu: Cpu{}}
 
 struct Hardware
 {
@@ -11,7 +10,6 @@ struct Hardware
 		ram RAM;
 		cpu cpu.CPU;
 }
-
 
 struct RAM 
 {
@@ -22,8 +20,6 @@ struct RAM
 		memory[mem_size_in_mb]u32
 		current_memory_addess u32
 }
-
-
 
 fn load_instructions(asm_instructions[string])
 {
@@ -39,8 +35,6 @@ fn start_assembler()
 
 fn start_vm()
 {
-
-
 	// Load asm instructions, converts to machine instructions and save in memory
 	start_assembler() 
 	// Get in memory, decode and run instructions
@@ -49,4 +43,5 @@ fn start_vm()
 	
 	threads  << spawn cpu.start_cpu()
 	threads  << spawn os.boot()
+	thread   << spawn start_asembler()
 }
